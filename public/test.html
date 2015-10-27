@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Zexplorer TEST</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    
+    var data = {};
+
+    $.ajax({
+        url: 'http://localhost:3000/api/auth/login',
+        method: 'POST',
+        data: data,
+        dataType: 'jsonp',
+        success: function(res) {
+            console.log(res);
+        },
+        error: function(err) {
+            console.error(err);
+        }
+    });
+
+
+
+</script>
+
+
+</body>
+</html>

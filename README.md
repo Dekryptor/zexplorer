@@ -1,2 +1,2 @@
-# zexplorer
-Zamunda torrent explorer
+# zamunda-torrent-explorer
+Zamunda backend parser and Much UI improvements.

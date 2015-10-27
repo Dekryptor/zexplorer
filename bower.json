@@ -1,0 +1,30 @@
+{
+  "name": "zamunda-torrent-explorer",
+  "description": "Zamunda torrent explorer web app",
+  "main": "bin/www",
+  "authors": [
+    "Ivo Tanev <ifch0o69@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "zamunda",
+    "torrent",
+    "explorer"
+  ],
+  "homepage": "https://github.com/ifch0o1/zamunda-torrent-explorer",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "polymer": "Polymer/polymer#^1.1.0",
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4",
+    "angular-route": "~1.4.7"
+  }
+}

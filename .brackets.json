@@ -1,0 +1,15 @@
+{
+    "jscodehints.detectedExclusions": [
+        "C:/Documents and Settings/IvoTanev/My Documents/workspace/zamunda-torrent-explorer/public/libs/angular.js",
+        "C:/Documents and Settings/IvoTanev/My Documents/workspace/zamunda-torrent-explorer/modules/zamunda/torrentTypes.js",
+        "C:/Documents and Settings/IvoTanev/My Documents/workspace/zamunda-torrent-explorer/app.js",
+        "C:/Documents and Settings/IvoTanev/My Documents/workspace/zamunda-torrent-explorer/public/components/jquery/src/outro.js",
+        "C:/Documents and Settings/IvoTanev/My Documents/workspace/zamunda-torrent-explorer/public/components/bootstrap/dist/js/bootstrap.min.js",
+        "C:/Documents and Settings/IvoTanev/My Documents/workspace/zamunda-torrent-explorer/public/components/bootstrap/dist/js/npm.js",
+        "C:/Documents and Settings/IvoTanev/My Documents/workspace/zamunda-torrent-explorer/public/js/app.js",
+        "C:/Documents and Settings/IvoTanev/My Documents/workspace/zamunda-torrent-explorer/public/components/jquery/src/ajax/jsonp.js",
+        "C:/Documents and Settings/IvoTanev/My Documents/workspace/zamunda-torrent-explorer/public/components/jquery/src/wrap.js",
+        "C:/Documents and Settings/IvoTanev/My Documents/workspace/zamunda-torrent-explorer/public/components/jquery/src/./var/support.js",
+        "C:/Documents and Settings/IvoTanev/My Documents/workspace/zamunda-torrent-explorer/public/js/services/torrentService.js"
+    ]
+}
