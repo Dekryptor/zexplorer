@@ -1,15 +1,15 @@
-var app = angular.module('zexplorer', ['ngRoute']);
-
-app.config('$routeProvider', function($routeProvider){
+(function(){
+    'use strict';
     
-    $routeProvider.when('/' {
-        templateUrl: 'templates/index',
-        controller: 'indexCtrl'
+    var app = angular.module('zexplorer', ['ngRoute', 'ngMaterial']);
+
+    app.config('$routeProvider', function($routeProvider){
+
+        $routeProvider.when('/', {
+
+        });
+
+
     });
 
-    $routeProvider.
-    
-    
-    
-    
-});
+}());

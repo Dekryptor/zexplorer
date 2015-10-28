@@ -39,3 +39,4 @@ node_modules
 # Bower folder
 bower_components
 public/components
+public/test.html

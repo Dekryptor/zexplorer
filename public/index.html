@@ -3,16 +3,40 @@
 <head>
 	<meta charset="UTF-8"> 
 	<title>Zamunda torrent explorer</title>
-    <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme-slate.css">
+    
+    <!--    Angular material css    -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css">
+    
+    <!--    Bootstrap    -->
+<!--    <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.css">-->
+<!--    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme-slate.css">-->
+    
+    <!--    jQuery    -->
     <script type="text/javascript" src="components/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="libs/angular.js"></script>
+    
+    <!--    [angular, angular-route, angular-aminate, angular-aria, angular-material]    -->
+    <script type="text/javascript" src="components/angular/angular.js"></script>
     <script type="text/javascript" src="components/angular-route/angular-route.js"></script>
-    <script type="text/javascript" src="components/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="components/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="components/angular-aria/angular-aria.js"></script>
+    <script type="text/javascript" src="components/angular-material/angular-material.js"></script>
+    
+    <!--    Bootstrap.JS    -->
+<!--    <script type="text/javascript" src="components/bootstrap/dist/js/bootstrap.js"></script>-->
+    
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+    </style>
+    
 </head>
 <body>
     <div class="header">
-        
+        <h1>Heading 1 - TEST</h1>
     </div>
     
     <div class="app-view" ng-view></div>

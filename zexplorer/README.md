@@ -1,2 +1,0 @@
-# zexplorer
-Zamunda torrent explorer
