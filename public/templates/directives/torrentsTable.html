@@ -1,0 +1,31 @@
+<md-list>
+    <div ng-repeat="torrent in torrentCtrl[index]">
+
+        <a class="torrent-anchor" ng-href="{{torrent.url}}">
+
+            <md-list-item class="md-3-line" >
+
+                <div class="md-list-item-text" layout="row" layout-align="start center">
+                    <ng-md-icon size="48px" icon="{{torrentCtrl.types[torrent.type].icon}}" style="fill: {{torrentCtrl.types[torrent.type].color}}"></ng-md-icon>
+                    <div flex="40" flex-offset="5"><p>{{ torrent.name }}</p></div>
+
+                    <div flex flex-offset-gt-sm="5" layout-row layout-align="center center">
+                        <rating-stars rating="torrent.rating"></rating-stars>
+                    </div>
+
+                    <div flex>{{ torrent.size }}</div>
+                    <div ng-show="torrent.seeds" flex="10" style="text-align: right" title="seeds">
+                        <span>{{ torrent.seeds }}</span>
+                        <ng-md-icon size="16px" icon="import_export"></ng-md-icon>
+                    </div>
+                </div>
+
+                <md-divider ng-hide="$last"></md-divider>
+
+          </md-list-item>
+
+        </a>
+
+    </div>
+
+</md-list>

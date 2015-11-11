@@ -1,0 +1,10 @@
+.rating-icon {
+    margin: 0 -5px;
+}
+
+.torrent-anchor {
+    outline: 0;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}

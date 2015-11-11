@@ -14,14 +14,13 @@ var log = require('../modules/simple-logger');
 var auth = require(path.normalize(__dirname + '/../modules/zamunda/auth'));
 
 router.post('/auth/login', function(req, res){
-    console.log(req.body);
     auth.login(req.body).then(function(cookies) {
         res.json(cookies);
         res.end();
     }, errorHandler);
 
     function errorHandler(err) {
-        if (err.messageBG && err.messageEN) {
+        if (err.messageBG) {
             res.status(err.status || 500);
             res.render('userError', err);
         }
@@ -41,8 +40,9 @@ router.post('/auth/login', function(req, res){
 */
 var torrentService = require(path.normalize(path.dirname() + '/../modules/zamunda/torrentService'));
 
-router.get('/torrent/recommended', function(req, res) {
+router.post('/torrent/recommended', function(req, res) {
     torrentService.getRecommended().then(function(data) {
+        console.log(data);
         res.end(JSON.stringify(data));
     }/*Error handling TODO*/);
 });
@@ -57,8 +57,8 @@ router.post('/torrent/search', function(req, res) {
         res.json(err || 'Server hitted unknown error.');
         res.end();
     }
-    console.log('req.body');
-    console.log(req.body);
+    // TODO Remove cl
+    console.log('req', req);
     torrentService.search(req.body).then(sendResponse, sendError);
 });
 

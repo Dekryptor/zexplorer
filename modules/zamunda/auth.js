@@ -56,7 +56,6 @@ var auth = (function() {
                 else {
                     reject({
                         status: 401,
-                        messageEN: 'An error occured while logging you into your zamunda account.',
                         messageBG: 'Възникна грешка при логването в замунда акаунта ви.'
                     });
                 }

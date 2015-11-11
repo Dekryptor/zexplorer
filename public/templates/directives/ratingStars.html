@@ -1,0 +1,15 @@
+<span ng-repeat="star in stars track by $index">
+
+    <ng-md-icon ng-hide="$last && $index > 3" class="rating-icon" size="16px" icon="star_rate" style="fill: orange">
+    </ng-md-icon>
+
+    <ng-md-icon ng-show="$last && $index == 4" class="rating-icon" size="16px" icon="star_rate" style="stroke: orange; fill: orange">
+    </ng-md-icon>
+
+</span>
+    
+<!-- Empty Stars fill -->
+<span ng-repeat="missingStar in fillMaxStars">
+    <ng-md-icon class="rating-icon" size="16px" icon="star_rate" style="fill: #ECECEC">
+    </ng-md-icon>
+</span>

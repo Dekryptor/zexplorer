@@ -1,3 +1,10 @@
+/**
+ * Important!
+ * 
+ * This route is never accessed is the server uses public folder
+ * which contains index.html file.
+ */
+
 var express = require('express');
 var router = express.Router();
 
