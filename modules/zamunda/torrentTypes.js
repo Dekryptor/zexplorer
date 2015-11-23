@@ -43,6 +43,7 @@ var typeParser = (function() {
 		if (!typeImgUrl) throw new Error('typeImgUrl is not defined');
 		return types[typeImgUrl] || undefined;
 	}
+	// TODO remove list + {all: list} if is not used anymore.
 	function list() {
 		return types;
 	}

@@ -22,7 +22,7 @@ router.post('/auth/login', function(req, res){
     function errorHandler(err) {
         if (err.messageBG) {
             res.status(err.status || 500);
-            res.render('userError', err);
+            res.end(err.messageBG);
         }
         else {
             res.status(500);

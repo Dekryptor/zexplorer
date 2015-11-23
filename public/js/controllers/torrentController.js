@@ -15,7 +15,6 @@
         };
 
         that.recommended = [];
-
         torrentService.getRecommended()
             .success(function(torrents){
                 that.recommended = torrents;
@@ -24,6 +23,4 @@
                 console.error(err);
             });
     }]);
-
-
 })();

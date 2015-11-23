@@ -8,3 +8,15 @@
     color: inherit;
     cursor: pointer;
 }
+
+login {
+    position: fixed;
+    margin: 0;
+    top: 7px;
+    left: 3px;
+}
+
+.error-text {
+    color: red;
+    text-transform: underline;
+}

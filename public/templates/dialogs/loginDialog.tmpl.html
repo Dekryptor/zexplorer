@@ -1,0 +1,67 @@
+<md-dialog aria-label="Login Dialog" ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Логин в Zamunda</h2>
+        <span flex></span>
+        <!--<md-button class="md-icon-button" ng-click="closeDialog()">
+          <ng-md-icon icon="close" style="fill: lightgrey" size="24px" aria-label="Close"></ng-md-icon>
+        </md-button>-->
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+      <div class="md-dialog-content">
+        <h2>Поверителност и лични данни</h2>
+        <p>
+          Името и паролата които предоставяте минават през сървъра на "Zamunda Explorer". За сега няма друг начин да се логнете в "Zamunda.net"
+          през този сайт.
+          <br/> 
+          Предоставените от вас име и парола не се запазват на сървъра на "Zamunda Explorer".
+          <br/>
+          <br/>
+          С натискането на Логин бутона, вие приемате използването на бисквитките ви от "Zamunda.net" в сайта на "Zamunda Explorer".
+        </p>
+        
+        <button ng-hide="extendedPrivacyInfo" ng-click="showExtendedPrivacyInfo()" class="md-primary md-button" type="button" md-no-ink="">
+          <span>Прочети повече</span>
+        </button>
+        
+        <p class="extendedPrivacyInfo" ng-show="extendedPrivacyInfo">
+          Вашето име и паролата се испращат на нашия сървър/и, но не се запазват под никаква форма. 
+          <br/>
+          Логин процеса е базиран изцяло на бисквитки (cookies). Те се запазват единствено на вашият интернет браузър.
+        </p>
+        
+        <hr>
+        
+        <h2>Логин в Замунда</h2>
+        <div layout="column" layout-align="center center" class="md-inline-form">
+          <p flex flex-fill>Използвайте името и паролата от Zamunda.net акаунта ви.</p>
+          <p flex flex-fill ng-show="error" class="error-text">
+            {{error}}
+          </p>
+          <md-content md-theme="docs-dark" layout-padding layout="row" layout-align="center" layout-sm="column">
+            <md-input-container>
+              <label>Име</label>
+              <input ng-model="user.username">
+            </md-input-container>
+            <md-input-container>
+              <label>Парола</label>
+              <input ng-model="user.password" type="password">
+            </md-input-container>
+          </md-content>
+        </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button ng-click="closeDialog()">
+        Отказ
+      </md-button>
+      <md-button md-autofocus ng-disabled="!user.username || !user.password" class="md-raised md-primary" ng-click="loginAttempt()" style="margin-right:20px;">
+        Логин
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

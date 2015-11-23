@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <base href="/">
 	<meta charset="UTF-8"> 
 	<title>Zamunda torrent explorer</title>
 
@@ -20,9 +21,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-cookies.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc2/angular-material.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc4/angular-material.js"></script>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc2/angular-material.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc4/angular-material.css" rel="stylesheet" />
 
     <!-- Material Icons -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.6.0/angular-material-icons.min.js"></script>
@@ -33,6 +34,7 @@
 <body ng-app="zexplorer" layout="column">
     <!-- Header (Material Toolbar) -->
     <md-toolbar md-scroll-shrink layout="row" layout-align="center center">
+        <login></login>
         <div>Zamunda Explorer</div>
     </md-toolbar>
     
@@ -40,7 +42,11 @@
     <!-- Content -->
     <div class="app-view" ng-view layout="column" flex></div>
 
-    <!-- Includes -->
+    <!-- 
+        ----------------
+        Included files.
+        ----------------
+    -->
     <script src="js/app.js"></script>
 
     <!-- Controllers -->
@@ -50,9 +56,11 @@
     <!-- Services -->
     <script type="text/javascript" src="js/services/torrentService.js"></script>
     <script type="text/javascript" src="js/services/torrentTypeIcons.js"></script>
+    <script type="text/javascript" src="js/services/authService.js"></script>
 
     <!-- Directives -->
     <script type="text/javascript" src="js/directives/torrentsTable.js"></script>
     <script type="text/javascript" src="js/directives/ratingStars.js"></script>
+    <script type="text/javascript" src="js/directives/login.js"></script>
 </body>
 </html>
