@@ -7,6 +7,7 @@ angular.module('zexplorer')
             rating: '='
         },
         link: function(scope, el) {
+            if ((typeof scope.rating) !== 'number') throw new TypeError('scope.rating must be an Number');
             scope.stars = Array(scope.rating);
             scope.fillMaxStars = Array(5 - scope.rating);
         }

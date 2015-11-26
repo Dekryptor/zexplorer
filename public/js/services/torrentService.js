@@ -15,17 +15,10 @@
              * Search torrent with request to the server.
              * 
              * @param {string} str Search string.
-             * @return {Promise} $http()
+             * @return {Promise} $http() .success(callback(data)) and .error(callback(err))
              */
             var search = function(str) {
-                var options = {
-                    method: 'POST',
-                    url: '/api/torrent/search',
-                    data: {
-                        search: str
-                    }
-                };
-                return $http(options);
+                return $http.post('api/torrent/search', {searchStr: str});
             };
 
             return {

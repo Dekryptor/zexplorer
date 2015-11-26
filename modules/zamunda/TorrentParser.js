@@ -3,6 +3,7 @@ var uri = require('../uri');
 var torrentTypeParser = require('./torrentTypes.js');
 
 function Parser(html) {
+    'use strict';
     if (html) {
         try {
             this.cache = cheerio.load(html);
@@ -46,14 +47,22 @@ Parser.prototype._parseTable = function(tableRows) {
         } catch (e) {
             try {
                 rating = uri.getFileName(rowDatas.eq(3).find('img').attr('src'), true) | 0;
-            } catch (e) {
-                throw e;
+            } catch (ex) {
+                try {
+                    rating = uri.getFileName(rowDatas.eq(4).find('img').attr('src'), true) | 0;
+                }
+                catch (exeption) {
+                    rating = 0;
+                }
             }
         }
 
         var size = that._ifSizeReturnSize(rowDatas.eq(3).text()) ||
             that._ifSizeReturnSize(rowDatas.eq(5).text());
 
+        var seeds = rowDatas.eq(7).find('font').text() ||
+            rowDatas.eq(7).find('.red').text() || 
+            undefined;
 
         torrents.push({
             type: torrentTypeParser.getType(rowDatas.eq(0).find('img').attr('src')),
@@ -62,7 +71,7 @@ Parser.prototype._parseTable = function(tableRows) {
             rating: rating,
             size: size,
             /* While not logged in - seeds td is not presented in the response from zamunda */
-            seeds: rowDatas.eq(7).find('font').text() || undefined
+            seeds: seeds
         });
 
     });

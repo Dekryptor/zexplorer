@@ -26,7 +26,10 @@ var torrentService = (function() {
     var getRecommended = function getRecomenddedTorrents(cookies) {
         return new Promise(function(resolve, reject) {
             var options = {
-                url: ZAMUNDA_URI + '/bananas'
+                url: ZAMUNDA_URI + '/bananas',
+                headers: {
+                    cookie: cookies || null
+                }
             };
 
             request(options, function(err, res, body) {
@@ -47,10 +50,11 @@ var torrentService = (function() {
      */
     var search = function search(queryObj, cookies) {
         return new Promise(function(resolve, reject) {
-
             var options = {
-                url: ZAMUNDA_URI + '/bananas',
-                qs: queryObj
+                url: ZAMUNDA_URI + '/bananas?search=' + queryObj.searchStr + '&field=name',
+                headers: {
+                    cookie: cookies
+                }
             };
 
             request(options, function(err, res, body) {

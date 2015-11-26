@@ -24,6 +24,7 @@ angular.module('zexplorer')
 					$scope.loginAttempt = function() {
 						authService.login($scope.user).then(function(){
 							$scope.closeDialog();
+							scope.isLoggedIn = authService.isLoggedIn();
 						}, function(err) {
 							$scope.error = err;
 						});

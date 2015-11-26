@@ -7,9 +7,6 @@
         return {
             restrict: 'E',
             templateUrl: 'templates/directives/torrentsTable.html',
-            scope: {
-                index: '@'
-            },
             controller: 'torrentController as torrentCtrl'
         };
     }]);

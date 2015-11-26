@@ -9,14 +9,17 @@
     cursor: pointer;
 }
 
-login {
-    position: fixed;
-    margin: 0;
-    top: 7px;
-    left: 3px;
-}
-
 .error-text {
     color: red;
     text-transform: underline;
+}
+
+.clickable-text {
+    outline: 0;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.profile-contailer {
+    font-size: 0.7em;
 }

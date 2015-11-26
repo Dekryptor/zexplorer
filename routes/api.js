@@ -41,8 +41,8 @@ router.post('/auth/login', function(req, res){
 var torrentService = require(path.normalize(path.dirname() + '/../modules/zamunda/torrentService'));
 
 router.post('/torrent/recommended', function(req, res) {
-    torrentService.getRecommended().then(function(data) {
-        console.log(data);
+    torrentService.getRecommended(req.headers.cookie).then(function(data) {
+        console.log('cookie', req.headers.cookie);
         res.end(JSON.stringify(data));
     }/*Error handling TODO*/);
 });
@@ -54,12 +54,12 @@ router.post('/torrent/search', function(req, res) {
     }
     function sendError(err) {
         res.status = err.status || 500;
-        res.json(err || 'Server hitted unknown error.');
+        res.json(err || 'Server hitted an unknown error.');
         res.end();
     }
     // TODO Remove cl
-    console.log('req', req);
-    torrentService.search(req.body).then(sendResponse, sendError);
+    // console.log('req', req);
+    torrentService.search(req.body, req.headers.cookie).then(sendResponse, sendError);
 });
 
 module.exports = router;

@@ -31,11 +31,20 @@
     <link rel="stylesheet" type="text/css" href="css/main.css" />
 </head>
 
-<body ng-app="zexplorer" layout="column">
+<body ng-app="zexplorer" layout="column" ng-cloak>
     <!-- Header (Material Toolbar) -->
-    <md-toolbar md-scroll-shrink layout="row" layout-align="center center">
-        <login></login>
-        <div>Zamunda Explorer</div>
+    <md-toolbar md-scroll-shrink layout="row" layout-align="start center">
+        <div flex="33" class="header-left" latout="row">
+            <!-- Only one of the next 2 directives will be shown -->
+            <login flex></login>
+            <profile flex></profile>
+        </div>
+        <div flex="33" class="header-brand" layout="row" layout-align="center">
+            <span>Zamunda Explorer</span>
+        </div>
+        <div flex="33" class="header-right">
+        
+        </div>
     </md-toolbar>
     
 
@@ -62,5 +71,7 @@
     <script type="text/javascript" src="js/directives/torrentsTable.js"></script>
     <script type="text/javascript" src="js/directives/ratingStars.js"></script>
     <script type="text/javascript" src="js/directives/login.js"></script>
+    <script type="text/javascript" src="js/directives/profile.js"></script>
+    <script type="text/javascript" src="js/directives/torrentSearch.js"></script>
 </body>
 </html>
