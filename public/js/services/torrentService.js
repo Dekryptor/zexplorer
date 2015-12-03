@@ -17,8 +17,11 @@
              * @param {string} str Search string.
              * @return {Promise} $http() .success(callback(data)) and .error(callback(err))
              */
-            var search = function(str) {
-                return $http.post('api/torrent/search', {searchStr: str});
+            var search = function(str, page) {
+                return $http.post('api/torrent/search', {
+                    searchString: str,
+                    page: page - 1
+                });
             };
 
             return {

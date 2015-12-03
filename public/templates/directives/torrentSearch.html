@@ -1,4 +1,4 @@
-<div layout="row" layout-align="center center">
+<form ng-submit="torrentCtrl.search(torrentCtrl.searchString)" layout="row" layout-align="center center">
     <md-input-container flex>
         <label>
             <ng-md-icon icon="search" style="fill: lightblue" size="16px"></ng-md-icon>
@@ -6,7 +6,7 @@
         </label>
         <input ng-model="torrentCtrl.searchString">
     </md-input-container>
-    <md-button ng-click="torrentCtrl.search(torrentCtrl.searchString)" flex="none" ng-disabled="!torrentCtrl.searchString" class="md-button md-raised md-ink-ripple">
+    <md-button type="submit" flex="none" ng-disabled="!torrentCtrl.searchString" class="md-button md-raised md-ink-ripple">
         <span>Търси</span>
     </md-button>
-</div>
+</form>

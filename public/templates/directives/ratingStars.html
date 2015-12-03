@@ -9,7 +9,7 @@
 </span>
     
 <!-- Empty Stars fill -->
-<span ng-repeat="missingStar in fillMaxStars">
+<span ng-repeat="missingStar in fillMaxStars track by $index">
     <ng-md-icon class="rating-icon" size="16px" icon="star_rate" style="fill: #ECECEC">
     </ng-md-icon>
 </span>

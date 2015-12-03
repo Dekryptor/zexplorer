@@ -1,0 +1,21 @@
+<div layout="column" ng-show="pagesCount">
+	
+	<div flex class="text-center">
+		
+		<uib-pagination
+        ng-change="pageChanged()"
+		items-per-page="itemsPerPage"
+		total-items="torrentsCount" 
+		ng-model="selectedPage" 
+		max-size="maxPages" 
+		class="pagination-sm" 
+		boundary-links="true"
+		first-text="Първа"
+		last-text="Последна"
+		previous-text="<"
+		next-text=">">
+		</uib-pagination>
+		
+	</div>
+	
+</div>

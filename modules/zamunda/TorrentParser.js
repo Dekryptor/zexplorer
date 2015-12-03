@@ -18,15 +18,17 @@ function Parser(html) {
 Parser.prototype._ifSizeReturnSize = function(str) {
     if (!str) return undefined;
 
-    if (str.indexOf(' GB') !== -1 ||
-        str.indexOf(' MB' !== -1) ||
-        str.indexOf(' KB' !== -1)) {
+    if (str.indexOf('GB') !== -1 ||
+        str.indexOf('MB') !== -1 ||
+        str.indexOf('KB') !== -1) {
         return str;
     } else {
-        return false;
+        return undefined;
     }
 };
 Parser.prototype._parseTable = function(tableRows) {
+    "use strict";
+
     if (!tableRows) throw new ReferenceError('tableRows is not defined');
 
     var that = this;
@@ -39,7 +41,7 @@ Parser.prototype._parseTable = function(tableRows) {
 
         // This try catch construction is used to indentify which is correct
         // element that containing the rating image.
-        // Different cases (different tables / login tables / guest tables)
+        // Different cases (different tables / user tables / guest tables)
         // are presented in different ways
         var rating;
         try {
@@ -64,10 +66,15 @@ Parser.prototype._parseTable = function(tableRows) {
             rowDatas.eq(7).find('.red').text() || 
             undefined;
 
+        var path = rowDatas.eq(1).find('a').attr('href');
+        if (path[0] != '/') {
+            path = '/' + path;
+        }
+
         torrents.push({
             type: torrentTypeParser.getType(rowDatas.eq(0).find('img').attr('src')),
             name: rowDatas.eq(1).find('a > b').text(),
-            url: 'http://' + that.ZAMUNDA_URL + rowDatas.eq(1).find('a').attr('href'),
+            url: 'http://' + that.ZAMUNDA_URL + path,
             rating: rating,
             size: size,
             /* While not logged in - seeds td is not presented in the response from zamunda */
@@ -89,6 +96,32 @@ Parser.prototype._parseTable = function(tableRows) {
  */
 Parser.prototype.parseTable = function(tableRows) {
     return this._parseTable(tableRows);
+};
+
+Parser.prototype.getPagination = function(pagesElement) {
+    var lastAnchor = pagesElement.find('a').last();
+    // If last page is requested in zamunda.net
+    // Last page is in <b> tag instead of <a> (for all selected pages not only the last).
+    // If last page isn't selected probably lastAnchor variable is the last child.
+    var isLastPageSelected = ! lastAnchor.is(':last-child');
+
+    var pagePath = lastAnchor.attr('href'); // This is last <a> href attr.
+    var pagesCount;
+    var maxTorrents;
+    if (isLastPageSelected) { // Then the last page is <b> without "href" attr.
+        pagesCount = pagePath ? pagePath.split('=').pop() : 0;
+        pagesCount++; // increasing cuz pagesPath is last but one page.
+        maxTorrents = pagesElement.find('b').last().text().split('-').pop();
+    } else {
+        pagesCount = pagePath ? pagePath.split('=').pop() : 0; // Parsed to int in return object.
+        maxTorrents = lastAnchor.find('b').text().split('-').pop();
+    }
+    maxTorrents = maxTorrents ? parseInt(maxTorrents, 10) : undefined;
+    
+    return {
+        pagesCount: pagesCount | 0,
+        torrentsCount: maxTorrents
+    };
 };
 
 module.exports = Parser;

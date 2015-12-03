@@ -13,6 +13,7 @@ var typeParser = (function() {
 		'http://img.zamunda.net/pic/cat_movies_science.gif': 'science',
 		'http://img.zamunda.net/pic/cat_movies_xvidrus.gif': 'movierus',
 		'http://img.zamunda.net/pic/cat_movies_xvidbg.gif': 'moviebg',
+		'http://img.zamunda.net/pic/cat_music_clips.gif': 'clips',
 
 		'http://img.zamunda.net/pic/cat_episodes_tveps.gif': 'tv',
 		'http://img.zamunda.net/pic/cat_episodes_tveps_hd.gif': 'tvhd',
@@ -34,7 +35,14 @@ var typeParser = (function() {
 		'http://img.zamunda.net/pic/cat_music_hires.gif': '24bit',
 
 		'http://img.zamunda.net/pic/cat_xxx_porn.gif': 'porn',
-		'http://img.zamunda.net/pic/cat_xxx_hd.gif': 'pornhd'
+		'http://img.zamunda.net/pic/cat_xxx_hd.gif': 'pornhd',
+
+		'http://img.zamunda.net/pic/cat_ebooks.gif': 'book',
+
+		'http://img.zamunda.net/pic/cat_misc.gif': 'others',
+
+		'http://img.zamunda.net/pic/cat_episodes_tveps_spo.gif': 'sport',
+		'http://img.zamunda.net/pic/cat_episodes_tveps_spohd.gif': 'sport'
 	};
 
 	// Exposed

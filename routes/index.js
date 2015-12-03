@@ -7,13 +7,11 @@
 
 var express = require('express');
 var router = express.Router();
-
-var path = require('path');
+var rootPath = require('app-root-path');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	var indexPath = path.join(__dirname, '../public', 'index.html');
-    res.sendFile(indexPath);
+    res.sendFile(rootPath + '/public/index.html');
 });
 
 module.exports = router;

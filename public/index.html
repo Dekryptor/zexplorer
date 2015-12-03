@@ -11,15 +11,15 @@
     <script type="text/javascript" src="components/jquery/dist/jquery.js"></script>
     
     <!--    [angular, angular-route, angular-aminate, angular-aria, angular-material, angular-cookies]    -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-aria.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-cookies.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc4/angular-material.js"></script>
 
@@ -27,7 +27,13 @@
 
     <!-- Material Icons -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.6.0/angular-material-icons.min.js"></script>
+    
+    <!-- Angular UI Bootstrap (custom build) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="/libs/ui-bootstrap/ui-bootstrap-custom-0.14.3.js"></script>
+    <script src="/libs/ui-bootstrap/ui-bootstrap-custom-tpls-0.14.3.js"></script>
 
+    <!-- Main files -->
     <link rel="stylesheet" type="text/css" href="css/main.css" />
 </head>
 
@@ -39,18 +45,16 @@
             <login flex></login>
             <profile flex></profile>
         </div>
-        <div flex="33" class="header-brand" layout="row" layout-align="center">
+        <div flex="33" flex-offset-sm="10" class="header-brand" layout="row" layout-align="center">
             <span>Zamunda Explorer</span>
         </div>
-        <div flex="33" class="header-right">
-        
+        <div flex="33" layout="row" layout-align="end" class="header-right">
+            <span style="font-size: 0.6em">v.0.0 (Developement)</span>
         </div>
     </md-toolbar>
-    
 
-    <!-- Content -->
+    <!-- View -->
     <div class="app-view" ng-view layout="column" flex></div>
-
     <!-- 
         ----------------
         Included files.
@@ -61,6 +65,7 @@
     <!-- Controllers -->
     <script type="text/javascript" src="js/controllers/appController.js"></script>
     <script type="text/javascript" src="js/controllers/torrentController.js"></script>
+    <script type="text/javascript" src="js/controllers/pagesController.js"></script>
 
     <!-- Services -->
     <script type="text/javascript" src="js/services/torrentService.js"></script>
@@ -73,5 +78,6 @@
     <script type="text/javascript" src="js/directives/login.js"></script>
     <script type="text/javascript" src="js/directives/profile.js"></script>
     <script type="text/javascript" src="js/directives/torrentSearch.js"></script>
+    <script type="text/javascript" src="js/directives/pages.js"></script>
 </body>
 </html>

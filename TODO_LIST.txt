@@ -1,0 +1,32 @@
+################################
+##       Optimization:        ##
+################################
+
+1.
+============================================================
+All zamunda responses are encoded from binary to utf-8.
+Check which encoder/decoder are faster and use the faster way
+To encode/decode the zamunda body to improve the server side speed.
+============================================================
+
+2.
+============================================================
+Use string buffer to concatenate some strings insted of + operator
+Almost in torrentParser.parseTable function - where LOOPS with + operator
+are executed.
+============================================================
+
+#################################
+##       Bug Fixes             ##
+#################################
+
+Parser._ifSizeReturnSize fixed
+Parser._parseTable minior changes and fixes
+Parser.getPagination implemented
+iconv encoding to utf-8 added
+getTorrentDescription html on server side
+added icons and dependencies
+angular updated from 1.4.7 to 1.4.8
+routing implemented
+client-side search implemented
+

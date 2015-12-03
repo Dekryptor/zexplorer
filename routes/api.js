@@ -26,7 +26,7 @@ router.post('/auth/login', function(req, res){
         }
         else {
             res.status(500);
-            res.end();
+            res.end('Server hitted an unknown error while processing your request.');
         }
     }
 });
@@ -42,7 +42,6 @@ var torrentService = require(path.normalize(path.dirname() + '/../modules/zamund
 
 router.post('/torrent/recommended', function(req, res) {
     torrentService.getRecommended(req.headers.cookie).then(function(data) {
-        console.log('cookie', req.headers.cookie);
         res.end(JSON.stringify(data));
     }/*Error handling TODO*/);
 });
@@ -53,13 +52,17 @@ router.post('/torrent/search', function(req, res) {
         res.end();
     }
     function sendError(err) {
-        res.status = err.status || 500;
-        res.json(err || 'Server hitted an unknown error.');
+        res.status(err.status || 500);
+        res.json(err || {err: 'Server hitted an unknown error.'});
         res.end();
     }
-    // TODO Remove cl
-    // console.log('req', req);
     torrentService.search(req.body, req.headers.cookie).then(sendResponse, sendError);
+});
+
+router.get('/torrent/description', function(req, res) {
+    torrentService.getTorrentDescriptionHTML(req.query.url).then(function(html){
+        res.end(html);
+    });
 });
 
 module.exports = router;

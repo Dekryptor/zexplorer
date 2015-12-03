@@ -1,5 +1,6 @@
 angular.module('zexplorer')
-.directive('login', ['$mdDialog', 'authService', function ($mdDialog, authService) {
+.directive('login', ['$mdDialog', 'authService', '$rootScope',
+function ($mdDialog, authService, $rootScope) {
 
 	function link(scope, element, attrs) {
 		scope.isLoggedIn = authService.isLoggedIn();
@@ -22,9 +23,12 @@ angular.module('zexplorer')
 						$scope.extendedPrivacyInfo = true;
 					};
 					$scope.loginAttempt = function() {
-						authService.login($scope.user).then(function(){
+						authService.login($scope.user).then(function(cookiesObj){
 							$scope.closeDialog();
 							scope.isLoggedIn = authService.isLoggedIn();
+							if (scope.isLoggedIn) {
+								$rootScope.$broadcast('user.loggedIn');
+							}
 						}, function(err) {
 							$scope.error = err;
 						});

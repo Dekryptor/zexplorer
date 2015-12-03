@@ -1,3 +1,8 @@
+/* Angular UI Bootstrap CSS fix */
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
 .rating-icon {
     margin: 0 -5px;
 }
@@ -22,4 +27,8 @@
 
 .profile-contailer {
     font-size: 0.7em;
+}
+
+torrents-table {
+    min-width: 50%;
 }

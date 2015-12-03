@@ -2,7 +2,7 @@ angular.module('zexplorer')
 .factory('torrentTypeIcons', [function() {
 
     var generalMovie = {
-        icon: 'play_arrow',
+        icon: 'videocam',
         color: 'blue'
     },
         generalGame = {
@@ -10,7 +10,7 @@ angular.module('zexplorer')
             color: 'orange'
     },
         generalSoft = {
-            icon: 'orange',
+            icon: 'memory',
             color: 'green'
     },
         generalMusic = {
@@ -56,6 +56,10 @@ angular.module('zexplorer')
             icon: 'tv',
             color: 'green'
         },
+        clips: {
+            icon: 'play_arrow',
+            color: 'purple'
+        },
 
         pcrip: generalGame,
         pciso: angular.extend({}, generalGame, {color: 'red'}),
@@ -83,7 +87,21 @@ angular.module('zexplorer')
         pornhd: {
             icon: 'play_circle_fill',
             color: 'pink'
-        }
+        },
 
+        book: {
+            icon: 'book',
+            color: 'grey'
+        },
+
+        sport: {
+            icon: 'directions_bike',
+            color: 'lightblue'
+        },
+
+        others: {
+            icon: 'attachment',
+            color: 'lightgrey'
+        }
     };
 }]);

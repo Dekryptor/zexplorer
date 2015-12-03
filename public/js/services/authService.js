@@ -17,11 +17,20 @@ angular.module('zexplorer')
     */
     function setCookies(cookies) {
         angular.forEach(cookies, function(c) {
-            // creating ['key', 'value'] array;
-            var kv = c[0].split('=');
-            $cookies.put(kv[0], kv[1], {expires:  increaseDate(new Date(), 6)});
+            var cookieObj = parseCookieStringToObject(c[0]);
+            $cookies.put(cookieObj.key, cookieObj.val, {expires:  increaseDate(new Date(), 6)});
         });
         return undefined;
+    }
+
+    /**
+     * Parses cookie string to object
+     * @param  {String} cookieStr Cookies string
+     * @return {JSON} obj {key: cookieKey, val: cookieVal}
+     */
+    function parseCookieStringToObject(cookieStr) {
+        var cArr = cookieStr.split('=');
+        return {key: cArr[0], val: cArr[1]};
     }
     
     /**
@@ -55,12 +64,23 @@ angular.module('zexplorer')
      * Login to zamunda.net
      * 
      * @param {JSON} credentials {username: 'name', password: 'secret'}
+     * @return {Promise} $q Resolves with {cookieKey: 'cookieVal', cookie2Key: 'val'} object
      */
     function login(credentials) {
         return $q(function(resolve, reject) {
             loginRequestCookies(credentials).then(function(cookies) {
-                setCookies(cookies);
-                resolve(undefined);
+                if (!cookies) throw new ReferenceError('cookies are not defined');
+                setCookies(cookies); // typeof cookies == Array (cookies[0] == ['ckey=cval'])
+
+                var cookiesParsedToObject = {}; 
+                angular.forEach(cookies, function(val, key) {
+                    var cookieKeyValObj = parseCookieStringToObject(val[0]);
+                    var cookieObj = {};
+                    cookieObj[cookieKeyValObj.key] = cookieKeyValObj.val;
+                    angular.extend(cookiesParsedToObject, cookieObj);
+                });
+
+                resolve(cookiesParsedToObject);
             }, function(err) {
                 reject(err);
             });
@@ -92,13 +112,3 @@ angular.module('zexplorer')
         isLoggedIn: isLoggedIn
     };
 }]);
-
-// var cookies = [
-//     "russian_lang=no; expires=Mon, 09-Nov-2015 14:47:01 GMT; path=/; domain=.zamunda.net",
-//     "uid=2407952; expires=Tue, 19-Jan-2038 03:14:07 GMT; path=/; domain=.zamunda.net",
-//     "pass=dbef5d9f4857ad4acb0dd06740ee6c0a; expires=Tue, 19-Jan-2038 03:14:07 GMT; path=/; domain=.zamunda.net",
-//     "cats=7; expires=Tue, 19-Jan-2038 03:14:07 GMT; path=/; domain=.zamunda.net",
-//     "periods=7; expires=Tue, 19-Jan-2038 03:14:07 GMT; path=/; domain=.zamunda.net",
-//     "statuses=1; expires=Tue, 19-Jan-2038 03:14:07 GMT; path=/; domain=.zamunda.net",
-//     "howmanys=1; expires=Tue, 19-Jan-2038 03:14:07 GMT; path=/; domain=.zamunda.net"
-// ];
