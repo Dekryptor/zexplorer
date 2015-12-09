@@ -19,14 +19,3 @@ are executed.
 #################################
 ##       Bug Fixes             ##
 #################################
-
-Parser._ifSizeReturnSize fixed
-Parser._parseTable minior changes and fixes
-Parser.getPagination implemented
-iconv encoding to utf-8 added
-getTorrentDescription html on server side
-added icons and dependencies
-angular updated from 1.4.7 to 1.4.8
-routing implemented
-client-side search implemented
-

@@ -97,14 +97,25 @@ var torrentService = (function() {
         });
     };
 
-    function getTorrentDescriptionHTML(url) {
+    function getTorrentDescriptionHTML(url, cookies) {
         if (!url) throw new ReferenceError('url is not defined');
 
         return new Promise(function(resolve, reject) {
-            var options = { url: url };
+            var options = {
+                url: url,
+                headers: {
+                    cookie: cookies
+                },
+                encoding: 'binary'
+            };
             request(options, function(err, res, body){
                 if (err) reject(err);
-                resolve(body);
+
+                body = new Buffer(body, 'binary');
+                var conv = new iconv.Iconv('windows-1251', 'utf-8//IGNORE');
+                var utf8_body = conv.convert(body).toString();
+
+                resolve(utf8_body);
             });
         });
     }

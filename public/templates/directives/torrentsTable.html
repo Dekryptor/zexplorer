@@ -6,7 +6,8 @@
     <md-list>
         <div ng-repeat="torrent in torrentCtrl.torrents">
 
-            <a class="torrent-anchor" ng-href="{{torrent.url}}">
+            <a class="torrent-anchor" 
+            ng-click="torrentCtrl.showTorrentDetailsDialog(torrent.url)">
 
                 <md-list-item class="md-3-line" >
 

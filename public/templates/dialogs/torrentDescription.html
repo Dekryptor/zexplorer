@@ -1,0 +1,34 @@
+<md-dialog aria-label="Torrent Description">
+    
+    <md-dialog-content layout="column">
+        <div layout="column" layout-align="start center">
+            <img ng-src="{{details.poster}}">
+        </div>
+
+        <div flex layout="column">
+            <span ng-repeat="description in details.description track by $index">
+                {{description}}
+                <hr>
+            </span>
+        </div>
+
+        <div flex layout="column" layout-align="start center">
+            <span ng-repeat="imageUrl in details.images track by $index">
+                <img ng-src="{{imageUrl}}">
+            </span>
+        </div>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+        <div ng-repeat="subtitlesUrl in details.subtitles">
+            <md-button ng-click="openUrl(subtitlesUrl)">
+                Субтитри {{$index + 1}}
+            </md-button>
+        </div>
+        <span flex></span>
+        <md-button md-autofocus ng-click="downloadTorrent(details.download)">Изтегли торента</md-button>
+        <md-button ng-click="closeDialog()">Затвори</md-button>
+    </md-dialog-actions>
+
+</md-dialog>

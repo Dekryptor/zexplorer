@@ -4,8 +4,9 @@
     var app = angular.module('zexplorer');
 
     app.controller('torrentController', ['torrentService', 'torrentTypeIcons', 
-    '$rootScope', '$routeParams', '$location',
-    function (torrentService, torrentTypeIcons, $rootScope, $routeParams, $location) {
+    '$rootScope', '$routeParams', '$location', '$mdDialog',
+    function (torrentService, torrentTypeIcons, $rootScope,
+    $routeParams, $location, $mdDialog) {
         var that = this;
         
         // Torrents table data container.
@@ -61,7 +62,38 @@
                 // todo show user err.
             });
         }
-        console.log(this);
 
+        that.showTorrentDetailsDialog = function(url) {
+            torrentService.getTorrentDetails(url)
+            .then(function(details) {
+                var parentEl = angular.element(document.body);
+                $mdDialog.show({
+                    parent: parentEl,
+                    templateUrl: '/templates/dialogs/torrentDescription.html',
+                    clickOutsideToClose: true,
+                    locals: {
+                        details: details
+                    },
+                    controller: ['$scope', function($scope) {
+                        $scope.details = details;
+                        $scope.closeDialog = function() {$mdDialog.hide();};
+                        $scope.downloadTorrent = function(goDownloadUrl) {
+                            if (!goDownloadUrl) throw new ReferenceError('goDownloadUrl is not defined');
+
+                            torrentService.getDownloadUrl(goDownloadUrl)
+                            .then(function(downloadUrl) {
+                                var link = document.createElement('a');
+                                link.download = $scope.details.name + '.torrent';
+                                link.href = downloadUrl;
+                                link.click();
+                            });
+                        };
+                    }]
+                });
+            }, function(err) {
+                throw err;
+                // Show user error with {String} err.
+            });
+        };
     }]);
 })();

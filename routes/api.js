@@ -60,9 +60,30 @@ router.post('/torrent/search', function(req, res) {
 });
 
 router.get('/torrent/description', function(req, res) {
-    torrentService.getTorrentDescriptionHTML(req.query.url).then(function(html){
+    torrentService.getTorrentDescriptionHTML(req.query.url, req.headers.cookie)
+    .then(function(html){
         res.end(html);
     });
+});
+
+/*
+|------------------------------
+| fileService
+|------------------------------
+*/
+var fileService = require(path.normalize(path.dirname() + '/../modules/zamunda/fileService'));
+router.get('/get/file', function(req, res) {
+    var url = req.query.url;
+    if (!url) {
+        res.status = 400;
+        res.end('url is not presented.');
+    }
+    // if (url.indexOf('zamunda.net') == -1) { // Todo - check the url with regex for better security.
+    //     res.status = 403;
+    //     res.end('cannot access this url.');
+    // }
+    // fileService.respondFile .pipe()s the data directly to the response object.
+    fileService.respondFile(req.query.url, req.headers.cookie, res);
 });
 
 module.exports = router;
