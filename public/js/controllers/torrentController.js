@@ -88,6 +88,9 @@
                                 link.click();
                             });
                         };
+                        $scope.openUrl = function(url) {
+                            window.open(url);
+                        };
                     }]
                 });
             }, function(err) {
