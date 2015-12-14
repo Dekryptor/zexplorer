@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var app = express();
+app.set('env', process.env.type);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

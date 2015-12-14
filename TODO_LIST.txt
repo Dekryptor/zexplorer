@@ -16,6 +16,13 @@ Almost in torrentParser.parseTable function - where LOOPS with + operator
 are executed.
 ============================================================
 
+3.
+============================================================
+jQuery performance optimization:
+https://learn.jquery.com/performance/
+============================================================
+
+
 #################################
 ##       Bug Fixes             ##
 #################################

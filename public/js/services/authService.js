@@ -1,5 +1,6 @@
 angular.module('zexplorer')
-.factory('authService', ['$http', '$cookies', '$q', function($http, $cookies, $q) {
+.factory('authService', ['$http', '$cookies', '$q', '$rootScope',
+function($http, $cookies, $q, $rootScope) {
     "use strict";
     
     // Private
@@ -80,6 +81,8 @@ angular.module('zexplorer')
                     angular.extend(cookiesParsedToObject, cookieObj);
                 });
 
+                $rootScope.emit('user.loggedIn');
+
                 resolve(cookiesParsedToObject);
             }, function(err) {
                 reject(err);
@@ -105,6 +108,8 @@ angular.module('zexplorer')
         angular.forEach(cookies, function(c, key) {
             $cookies.remove(key);
         });
+
+        $rootScope.emit('user.loggedOut');
     }
     
     return {

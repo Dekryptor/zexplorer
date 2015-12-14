@@ -19,4 +19,23 @@
         $locationProvider.html5Mode(true);
     }]);
 
+    app.run(['profileSettings', '$rootScope', function(profileSettings, $rootScope){
+        $rootScope.settings = {};
+
+        function refreshSettings() {
+            profileSettings.torrentsPerPage().then(function(torrentsPerPage) {
+                $rootScope.settings.torrentsPerPage = torrentsPerPage;
+                $rootScope.$emit('settings.updated');
+            }, function(err) {
+                console.log('error ocurred while resolving the user settings.');
+            });
+        }
+        refreshSettings();
+
+        var unbind = $rootScope.$on('user.loggedIn', refreshSettings);
+        var logoutUnbind = $rootScope.$on('user.loggedOut', refreshSettings);
+        $rootScope.$on('$destroy', unbind);
+        $rootScope.$on('$destroy', logoutUnbind);
+    }]);
+
 }());

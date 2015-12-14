@@ -63,6 +63,12 @@ var torrentService = (function() {
             if (typeof reqData.searchString === 'undefined') {
                 reject({status: 400, error: 'reqData.searchString is not defined'});
             }
+            if (typeof reqData.page !== 'number') {
+                reject({status: 400, error: 'Page must be a number'});
+            }
+            if (reqData.page > 15000) { // Zamunda.net entire torrent pages = ~13000
+                reject({status: 400, error: 'The page cannot be accessed.'});
+            }
 
             var options = {
                 url: ZAMUNDA_URI + '/bananas',
