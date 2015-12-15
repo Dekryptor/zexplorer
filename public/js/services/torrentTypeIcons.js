@@ -16,6 +16,10 @@ angular.module('zexplorer')
         generalMusic = {
             icon: 'volume_up',
             color: 'darkorange'
+    },
+        android = {
+            icon: 'android',
+            color: 'lightgreen'
     };
 
     return {
@@ -32,7 +36,7 @@ angular.module('zexplorer')
             icon: 'disc_full',
             color: 'darkblue'
         },
-        anime: angular.extend({}, generalMovie, {color: 'yellow'}),
+        anime: angular.extend({}, generalMovie, {color: 'bisque'}),
         vidhd: {
             icon: 'high_quality',
             color: 'lightgreen'
@@ -69,6 +73,12 @@ angular.module('zexplorer')
         mac: {
             icon: 'apple',
             color: 'black'
+        },
+        androidapp: android,
+        androidgame: android,
+        mobile: {
+            icon: 'smartphone',
+            color: 'silver'
         },
 
         pcsoft: generalSoft,

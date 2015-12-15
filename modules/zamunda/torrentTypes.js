@@ -24,6 +24,9 @@ var typeParser = (function() {
 		'http://img.zamunda.net/pic/cat_apps_xbox.gif': 'xbox',
 
 		'http://img.zamunda.net/pic/cat_apps_mac.gif': 'mac',
+		'http://img.zamunda.net/pic/android-iconapps.png': 'androidapp',
+		'http://img.zamunda.net/pic/android-icongames.png': 'androidgame',
+		'http://img.zamunda.net/pic/cat_gsm.gif': 'mobile',
 
 		'http://img.zamunda.net/pic/cat_apps_pciso.gif': 'pcsoft',
 		'http://img.zamunda.net/pic/cat_apps_misc.gif': 'miscsoft',
