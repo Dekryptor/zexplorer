@@ -83,7 +83,7 @@
                     locals: {
                         details: details
                     },
-                    controller: ['$scope', function($scope) {
+                    controller: ['$scope', 'downloader', function($scope, downloader) {
                         $scope.details = details;
                         $scope.closeDialog = function() {$mdDialog.hide();};
                         $scope.downloadTorrent = function(goDownloadUrl) {
@@ -91,10 +91,7 @@
 
                             torrentService.getDownloadUrl(goDownloadUrl)
                             .then(function(downloadUrl) {
-                                var link = document.createElement('a');
-                                link.download = $scope.details.name + '.torrent';
-                                link.href = downloadUrl;
-                                link.click();
+                                downloader(downloadUrl, $scope.details.name, 'torrent');
                             });
                         };
                         $scope.openUrl = function(url) {
