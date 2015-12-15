@@ -81,7 +81,7 @@ function($http, $cookies, $q, $rootScope) {
                     angular.extend(cookiesParsedToObject, cookieObj);
                 });
 
-                $rootScope.emit('user.loggedIn');
+                $rootScope.$emit('user.loggedIn');
 
                 resolve(cookiesParsedToObject);
             }, function(err) {
