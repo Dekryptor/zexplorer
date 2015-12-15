@@ -1,7 +1,8 @@
 var request = require('request');
+var logger = require('../simple-logger');
+var os = require('os');
 
 var fileService = (function() {
-
 
     // Exposed
 
@@ -14,7 +15,11 @@ var fileService = (function() {
             }
         };
 
-        request(options).pipe(resObj);
+        request(options)
+        .on('error', function(err) {
+            logger.warn(os.EOL + url + os.EOL + err.toString() + os.EOL + err.stack);
+        })
+        .pipe(resObj);
     }
 
 

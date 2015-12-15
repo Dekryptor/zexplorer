@@ -29,6 +29,7 @@ var torrentService = (function() {
      * @return {Promise}         Promise that resolves with Array of torrents
      */
     var getRecommended = function getRecomenddedTorrents(cookies) {
+        console.log(cookies);
         return new Promise(function(resolve, reject) {
             var options = {
                 url: ZAMUNDA_URI + '/bananas',
@@ -66,7 +67,7 @@ var torrentService = (function() {
             if (typeof reqData.page !== 'number') {
                 reject({status: 400, error: 'Page must be a number'});
             }
-            if (reqData.page > 15000) { // Zamunda.net entire torrent pages = ~13000
+            if (reqData.page > 30000) {
                 reject({status: 400, error: 'The page cannot be accessed.'});
             }
 
