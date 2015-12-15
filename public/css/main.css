@@ -7,6 +7,11 @@
     margin: 0 -5px;
 }
 
+.normal-text, .normal-text:hover, .normal-text:visited {
+    color: white;
+    text-decoration: none !important;
+}
+
 .torrent-anchor, .torrent-anchor:hover {
     outline: 0;
     text-decoration: none;

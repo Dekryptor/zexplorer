@@ -28,6 +28,10 @@
                 return $HTML.find('h1').text();
             }
 
+            function getTorrentUrl(html) {
+                var $HTML = $(html);
+            }
+
             function getTorrentGoDownloadUrl(html) {
                 if (!html) throw new ReferenceError('html is not defined');
                 if ((html instanceof jQuery) === false) {
@@ -77,7 +81,7 @@
             }
 
             // Need refactoring...
-            function parseTorrentDetailsHTML(html) {
+            function parseTorrentDetailsHTML(html, url) {
                 if (!html) throw new ReferenceError('html is not defined.');
 
                 var detailsObject = {};
@@ -117,6 +121,7 @@
                         imageLinks.push(imgLink);
                     }
                 });
+                detailsObject.url = url;
                 detailsObject.images = imageLinks;
                 detailsObject.subtitles = extractSubtitlesUrls($description);
                 detailsObject.description = $description.text().split('##');
@@ -161,7 +166,7 @@
                 return $q(function(resolve, reject) {
                     getTorrentDetailsHTML(url)
                     .success(function(html) {
-                        var detailsObject = parseTorrentDetailsHTML(html);
+                        var detailsObject = parseTorrentDetailsHTML(html, url);
                         if (detailsObject.error) {
                             reject(detailsObject.error);
                         } else {

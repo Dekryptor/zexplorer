@@ -23,8 +23,7 @@
 
         that.torrents = [];
 
-        //If location == application root then get recommended torrents
-        if ($location.path() === '/') {
+        that.showRecommended = function() {
             torrentService.getRecommended()
             .success(function(torrents){
                 that.torrents = torrents;
@@ -33,6 +32,11 @@
             .error(function(err) {
                 console.error(err);
             });
+        };
+
+        //If location == application root then get recommended torrents
+        if ($location.path() === '/') {
+            that.showRecommended();
         }
         // Else if this is a search path
         // Call the search function.
@@ -64,6 +68,11 @@
         }
 
         that.showTorrentDetailsDialog = function(url) {
+            var loadingDialog = $mdDialog.show({
+                templateUrl: '/templates/dialogs/loadingDialog.html',
+            });
+
+
             torrentService.getTorrentDetails(url)
             .then(function(details) {
                 var parentEl = angular.element(document.body);

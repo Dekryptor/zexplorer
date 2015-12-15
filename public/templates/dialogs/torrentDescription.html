@@ -1,6 +1,10 @@
 <md-dialog aria-label="Torrent Description">
     
     <md-dialog-content layout="column">
+        <div layout="row" layout-align="center">
+            <h3>{{details.name}}</h3>
+        </div>
+
         <div layout="column" layout-align="start center">
             <img ng-src="{{details.poster}}">
         </div>
@@ -27,6 +31,7 @@
             </md-button>
         </div>
         <span flex></span>
+        <md-button md-autofocus ng-click="openUrl(details.url)">Виж в Zamunda</md-button>
         <md-button md-autofocus ng-click="downloadTorrent(details.download)">Изтегли торента</md-button>
         <md-button ng-click="closeDialog()">Затвори</md-button>
     </md-dialog-actions>

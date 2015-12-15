@@ -1,10 +1,6 @@
 <form ng-submit="torrentCtrl.search(torrentCtrl.searchString)" layout="row" layout-align="center center">
-    <md-input-container flex>
-        <label>
-            <ng-md-icon icon="search" style="fill: lightblue" size="16px"></ng-md-icon>
-            <span>Търсене</span>
-        </label>
-        <input ng-model="torrentCtrl.searchString">
+    <md-input-container md-no-float flex>
+        <input ng-model="torrentCtrl.searchString" placeholder="Търсене">
     </md-input-container>
     <md-button type="submit" flex="none" ng-disabled="!torrentCtrl.searchString" class="md-button md-raised md-ink-ripple">
         <span>Търси</span>
