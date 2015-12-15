@@ -29,7 +29,6 @@ var torrentService = (function() {
      * @return {Promise}         Promise that resolves with Array of torrents
      */
     var getRecommended = function getRecomenddedTorrents(cookies) {
-        console.log(cookies);
         return new Promise(function(resolve, reject) {
             var options = {
                 url: ZAMUNDA_URI + '/bananas',
@@ -48,7 +47,12 @@ var torrentService = (function() {
 
                 var $ = cheerio.load(utf8_body);
                 var torrentParser = new TorrentParser();
-                var torrents = torrentParser.parseTable($('#div1 tr'));
+                var torrents = [];
+                if (cookies === undefined) {
+                    torrents = torrentParser.parseTable($('.test.bottom tr'));
+                } else {
+                    torrents = torrentParser.parseTable($('#div1 tr'));
+                }
                 resolve(torrents);
             });
         });

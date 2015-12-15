@@ -28,10 +28,6 @@
             torrentService.getRecommended()
             .success(function(torrents){
                 that.torrents = torrents;
-                if (torrents.length === 0) {
-                    that.search('2015', 1);
-                    return;
-                }
                 that.loading = false;
             })
             .error(function(err) {
