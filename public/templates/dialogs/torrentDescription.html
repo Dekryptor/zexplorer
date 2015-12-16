@@ -30,9 +30,15 @@
                 Субтитри {{$index + 1}}
             </md-button>
         </div>
-        <span flex></span>
+
+        <span flex layout="row" layout-align="center">
+            <md-progress-circular md-mode="indeterminate" class="md-hue-3" md-diameter="20" ng-show="downloading"></md-progress-circular>
+        </span>
+
         <md-button md-autofocus ng-click="openUrl(details.url)">Виж в Zamunda</md-button>
-        <md-button md-autofocus ng-click="downloadTorrent(details.download)">Изтегли</md-button>
+
+        <md-button md-autofocus ng-disabled="downloading" ng-click="downloadTorrent(details.download)">Изтегли</md-button>
+
         <md-button ng-click="closeDialog()">Затвори</md-button>
     </md-dialog-actions>
 

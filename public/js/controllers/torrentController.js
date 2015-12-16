@@ -83,15 +83,19 @@
                     locals: {
                         details: details
                     },
-                    controller: ['$scope', 'downloader', function($scope, downloader) {
+                    controller: ['$scope', '$timeout', 'downloader', 
+                    function($scope, $timeout, downloader) {
                         $scope.details = details;
+                        $scope.downloading = false;
                         $scope.closeDialog = function() {$mdDialog.hide();};
                         $scope.downloadTorrent = function(goDownloadUrl) {
                             if (!goDownloadUrl) throw new ReferenceError('goDownloadUrl is not defined');
 
+                            $scope.downloading = true;
                             torrentService.getDownloadUrl(goDownloadUrl)
                             .then(function(downloadUrl) {
                                 downloader(downloadUrl, $scope.details.name, 'torrent');
+                                $timeout(function(){ $scope.downloading = false; }, 2000);
                             });
                         };
                         $scope.openUrl = function(url) {
