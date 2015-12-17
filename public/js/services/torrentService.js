@@ -80,6 +80,49 @@
                 return urls;
             }
 
+            function getImages($description) { 
+                var imageLinks = [];
+                var $allImages = $description.find('img');
+                $allImages.each(function(i, el) {
+                    var $el = $(el);
+                    var src = $el.attr('_src');
+                    if (!src) return true; //continue;
+                    // Skip IMDb star images.
+                    if (src == 'http://zamunda.net/pic/fullr.png' ||
+                        src == 'http://zamunda.net/pic/blankr.png' ||
+                        src == 'http://zamunda.net/pic/halfr.png') {
+                            return true; // continue;
+                    }
+                    if (src == 'http://zamunda.net/pic/playicon.png') {
+                        return true; // continue;
+                    }
+                    if (src.indexOf('zamunda.net/pic/smilies') > -1) {
+                        return true; // continue
+                    }
+                    if (src.indexOf('zamunda.net/bitbucket/eng26x18.jpg') > -1) {
+                        return true; // continue
+                    }
+                    if (src.indexOf('zamunda.net/bitbucket/win%20look.jpg') > -1) {
+                        return true; // continue
+                    }
+                    var imgLink = createGetFileLink(src);
+                    imageLinks.push(imgLink);
+                });
+                
+                return imageLinks;
+            }
+
+            function checkForExternalLinks(description) {
+                if (!angular.isArray(description)) throw new TypeError('description must be an array');
+                function checkImdb() {
+                    // TODO
+                }
+
+                angular.forEach(description, function(val, key){
+                    // TODO
+                });
+            }
+
             // Need refactoring...
             function parseTorrentDetailsHTML(html, url) {
                 if (!html) throw new ReferenceError('html is not defined.');
@@ -96,33 +139,10 @@
                 detailsObject.download = getTorrentGoDownloadUrl($HTML);
 
                 var $description = $HTML.find('#description');
-
-                var imageLinks = [];
-                var $allImages = $description.find('img');
-                $allImages.each(function(i, el) {
-                    var $el = $(el);
-                    var src = $el.attr('_src');
-                    if (!src) return true; //continue;
-                    // Skip IMDb star images.
-                    if (src == 'http://zamunda.net/pic/fullr.png' ||
-                        src == 'http://zamunda.net/pic/blankr.png' ||
-                        src == 'http://zamunda.net/pic/halfr.png') {
-                            return true; // continue;
-                    }
-                    if (src == 'http://zamunda.net/pic/playicon.png') {
-                        return true; // continue;
-                    }
-                    if (!detailsObject.poster) {
-                        detailsObject.poster = createGetFileLink(src);
-                        return true; // continue;
-                    }
-                    var imgLink = createGetFileLink(src);
-                    if (imgLink !== detailsObject.poster) {
-                        imageLinks.push(imgLink);
-                    }
-                });
+                var images = getImages($description);
+                detailsObject.poster = images.shift();
+                detailsObject.images = images;
                 detailsObject.url = url;
-                detailsObject.images = imageLinks;
                 detailsObject.subtitles = extractSubtitlesUrls($description);
                 detailsObject.description = $description.text().split('##');
 
