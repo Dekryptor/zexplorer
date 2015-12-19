@@ -48,7 +48,7 @@ var torrentService = (function() {
                 var $ = cheerio.load(utf8_body);
                 var torrentParser = new TorrentParser();
                 var torrents = [];
-                if (cookies === undefined) {
+                if (cookies.indexOf('uid=') === -1) {
                     torrents = torrentParser.parseTable($('.test.bottom tr'));
                 } else {
                     torrents = torrentParser.parseTable($('#div1 tr'));
