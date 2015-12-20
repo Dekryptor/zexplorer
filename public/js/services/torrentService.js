@@ -193,6 +193,9 @@
 
             function parseTorrentDetailsHTML(html, url) {
                 if (!html) throw new ReferenceError('html is not defined.');
+                if (url.indexOf('decision(') > -1) {
+                    return {error: 'Този торрент не се поддържа.'};
+                }
 
                 var detailsObject = {};
 

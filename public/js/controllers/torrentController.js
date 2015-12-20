@@ -75,6 +75,9 @@
 
             torrentService.getTorrentDetails(url)
             .then(function(details) {
+                if (details.error) {
+                    $mdDialog.show($mdDialog.alert().textContent(details.error).ok('Затвори'));
+                }
                 var parentEl = angular.element(document.body);
                 $mdDialog.show({
                     parent: parentEl,
