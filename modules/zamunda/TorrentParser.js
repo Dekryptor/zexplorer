@@ -34,8 +34,9 @@ Parser.prototype._parseTable = function(tableRows) {
     var that = this;
 
     var torrents = [];
-    tableRows.each(function(i, tr) {
-        if (i === 0) return true; // continue; (first tr is playing role for th)
+    for (var i = 0; i < tableRows.length - 1; i++) {
+        if (i === 0) continue;
+        var tr = cheerio(tableRows[i]);
 
         var rowDatas = cheerio(tr).find('td');
 
@@ -80,8 +81,7 @@ Parser.prototype._parseTable = function(tableRows) {
             /* While not logged in - seeds td is not presented in the response from zamunda */
             seeds: seeds
         });
-
-    });
+    }
 
     return torrents;
 
