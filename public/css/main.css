@@ -44,7 +44,8 @@ md-dialog img {
     max-height: 100%;
     max-width: 100%;
 }
-md-dialog-actions md-button, md-dialog-actions button {
+.description-dialog md-dialog-actions md-button,
+.description-dialog md-dialog-actions button {
     min-width: 4em !important;
 }
 
