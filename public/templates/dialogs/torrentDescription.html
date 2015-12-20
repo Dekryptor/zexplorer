@@ -24,22 +24,32 @@
 
     </md-dialog-content>
 
-    <md-dialog-actions layout="row">
+    <md-dialog-actions layout"row">
         <div ng-repeat="subtitlesUrl in details.subtitles">
-            <md-button ng-click="openUrl(subtitlesUrl)">
-                Субтитри {{$index + 1}}
+            <md-button title="Субтитри" ng-click="openUrl(subtitlesUrl)">
+                <ng-md-icon layout="row" layout-align="center center" icon="subtitles" style="fill: black"></ng-md-icon>
+            </md-button>
+        </div>
+        <div ng-repeat="(key, val) in details.externalLinks">
+            <md-button ng-click="openUrl(val)">
+                <md-icon alt="{{key}}" md-svg-src="/icons/{{key}}.svg" aria-label="{{key}}"></md-icon>
             </md-button>
         </div>
 
-        <span flex layout="row" layout-align="center">
-            <md-progress-circular md-mode="indeterminate" class="md-hue-3" md-diameter="20" ng-show="downloading"></md-progress-circular>
-        </span>
+        <span flex layout="row" layout-align="center"></span>
 
-        <md-button md-autofocus ng-click="openUrl(details.url)">Виж в Zamunda</md-button>
+        <md-button md-autofocus ng-click="openUrl(details.url)">
+            <ng-md-icon layout="row" layout-align="center center" icon="open_in_new" style="fill: black"></ng-md-icon> 
+        </md-button>
 
-        <md-button md-autofocus ng-disabled="downloading" ng-click="downloadTorrent(details.download)">Изтегли</md-button>
+        <md-button md-autofocus ng-hide="downloading" ng-click="downloadTorrent(details.download)">
+            <ng-md-icon layout="row" layout-align="center center" icon="file_download" style="fill: black"></ng-md-icon>
+        </md-button>
+        <md-progress-circular md-mode="indeterminate" class="md-hue-3" md-diameter="20" ng-show="downloading"></md-progress-circular>
 
-        <md-button ng-click="closeDialog()">Затвори</md-button>
+        <md-button ng-click="closeDialog()">
+            <ng-md-icon layout="row" layout-align="center center" icon="close" style="fill: black"></ng-md-icon> 
+        </md-button>
     </md-dialog-actions>
 
 </md-dialog>

@@ -44,8 +44,11 @@ md-dialog img {
     max-height: 100%;
     max-width: 100%;
 }
+md-dialog-actions md-button, md-dialog-actions button {
+    min-width: 4em !important;
+}
 
-@media (max-width: 800px) {
+@media (max-width: 960px) {
     .torrents-pagination {
         -webkit-transform: scale(1.1) ;
         -moz-transform: scale(1.1);

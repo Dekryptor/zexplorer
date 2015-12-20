@@ -1,4 +1,4 @@
-(function($) {
+(function($, undefined) {
     'use strict';
 
     var ZAMUNDA_HOST = 'http://www.zamunda.net';
@@ -112,18 +112,85 @@
                 return imageLinks;
             }
 
-            function checkForExternalLinks(description) {
-                if (!angular.isArray(description)) throw new TypeError('description must be an array');
-                function checkImdb() {
-                    // TODO
+            function getExternalLinks($description) {
+                if (!$description) throw new ReferenceError('$description is not defined.');
+                if (!($description instanceof jQuery)) {
+                    $description = $($description);
                 }
 
-                angular.forEach(description, function(val, key){
-                    // TODO
+                var linksFoundAtIndexes = [];
+                var imdbRegExp = new RegExp('imdb', 'i');
+                var cinefishRegExp = new RegExp('cinefish', 'i');
+                var descriptionHTMLs = $description.html().split('##');
+                var externalLinks = {};
+                jQuery.each(descriptionHTMLs, function(i, val) {
+                    var imdbLink = extractLink(val, imdbRegExp);
+                    if (imdbLink) {
+                        externalLinks.imdb = imdbLink;
+                        linksFoundAtIndexes.push(i);
+                        return true; // continue;
+                    }
+
+                    var cinefishLink = extractLink(val, cinefishRegExp);
+                    if (cinefishLink) {
+                        externalLinks.cinefish = cinefishLink;
+                        linksFoundAtIndexes.push(i);
+                        return true; // continue;
+                    }
                 });
+
+                function extractLink(html, regExp) {
+                    if (html.search(regExp) > -1) {
+                        var $html = $(html);
+                        var $links = $html.find('a');
+                        if ($links.length === 0) return true; // continue;
+                        if ($links.length === 1) {
+                            return $links.attr('href');
+                        }
+                        if ($links.length > 1) {
+                            var link;
+                            $links.each(function(i, val) {
+                                var href = val.getAttribute('href');
+                                if (href.indexOf('http://www.imdb.com/') > -1) {
+                                    link = href;
+                                    return false; // break;
+                                }
+                            });
+                            return link;
+                        }
+                    } else {
+                        return undefined;
+                    }
+                }
+
+                return {
+                    links: externalLinks,
+                    foundAt: linksFoundAtIndexes
+                };
             }
 
-            // Need refactoring...
+            function parseDescriptionTextsAndLinks($description) {
+                if (!$description) throw new ReferenceError('$description is not defined.');
+                if (!($description instanceof jQuery)) {
+                    $description = $($description);
+                }
+
+                var externalLinksResults = getExternalLinks($description);
+                var links = externalLinksResults.links;
+                var atIndexses = externalLinksResults.foundAt;
+
+                var descriptionTexts = $description.text().split('##');
+                for (var i = atIndexses.length - 1; i >= 0; i--) {
+                    // Cut the text while we found the external link.
+                    descriptionTexts.splice(atIndexses[i], 1);
+                }
+
+                return {
+                    externalLinks: links,
+                    descriptionTexts: descriptionTexts
+                };
+            }
+
             function parseTorrentDetailsHTML(html, url) {
                 if (!html) throw new ReferenceError('html is not defined.');
 
@@ -144,7 +211,9 @@
                 detailsObject.images = images;
                 detailsObject.url = url;
                 detailsObject.subtitles = extractSubtitlesUrls($description);
-                detailsObject.description = $description.text().split('##');
+                var parsedTextsAndLinks = parseDescriptionTextsAndLinks($description);
+                detailsObject.description = parsedTextsAndLinks.descriptionTexts;
+                detailsObject.externalLinks = parsedTextsAndLinks.externalLinks;
 
                 return detailsObject;
             }
@@ -212,4 +281,4 @@
         return torrentService;
     }]);
 
-})(jQuery);
+})(jQuery, undefined);
