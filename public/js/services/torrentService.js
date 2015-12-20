@@ -199,7 +199,7 @@
                 html = html.replace(new RegExp('src=', 'g'), '_src=');
                 var $HTML = $(html);
                 if ($HTML.find('form[name="login"]').length > 0) {
-                    return {error: 'Неможе да достъпите този торент като гост.'};
+                    return {error: 'Не може да достъпите този торент като гост.'};
                 }
 
                 detailsObject.name = getTorrentName($HTML);

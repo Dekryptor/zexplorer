@@ -104,7 +104,7 @@
                     }]
                 });
             }, function(err) {
-                throw err;
+                $mdDialog.show($mdDialog.alert().textContent(err).ok('Затвори'));
                 // Show user error with {String} err.
             });
         };
