@@ -44,13 +44,16 @@
             _search($routeParams.searchString, $routeParams.page);
         }
         
+        var regExp = new RegExp('\/', 'g');
         that.search = function(searchString, page) {
             page = page || 1;
+            searchString = searchString.replace(regExp, '');
             $location.path('/search/' + searchString + '/' + page);
         };
 
         function _search(searchString, page) {
             that.loading = true;
+            searchString = searchString.replace(regExp, '');
             torrentService.search(searchString, page)
             .success(function(response){
                 that.torrents = response.torrents;

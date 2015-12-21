@@ -34,7 +34,7 @@ Parser.prototype._parseTable = function(tableRows) {
     var that = this;
 
     var torrents = [];
-    for (var i = 0; i < tableRows.length - 1; i++) {
+    for (var i = 0; i < tableRows.length; i++) {
         if (i === 0) continue;
         var tr = cheerio(tableRows[i]);
 

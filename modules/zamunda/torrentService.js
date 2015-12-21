@@ -8,6 +8,7 @@ var iconv = require('iconv');
 var TorrentParser = require('./TorrentParser'); // Return "class function" - use with `new`
 var torrentTypeParser = require('./torrentTypes.js');
 var uri = require('../uri');
+var unicodeToWin1251_UrlEncoded = require('../unicodeToWin1251_UrlEncoded');
 
 var torrentService = (function() {
     "use strict";
@@ -75,15 +76,21 @@ var torrentService = (function() {
                 reject({status: 400, error: 'The page cannot be accessed.'});
             }
 
+            var searchString = decodeURIComponent(reqData.searchString);
+            searchString = unicodeToWin1251_UrlEncoded(searchString);
+
             var options = {
                 url: ZAMUNDA_URI + '/bananas',
                 headers: {
                     cookie: cookies
                 },
                 qs: {
-                    search: reqData.searchString,
-                    page: reqData.page || 0, // Zamunda pages start from 0
+                    search: searchString,
+                    page: encodeURIComponent(reqData.page) || 0, // Zamunda pages start from 0
                     field: 'name'
+                },
+                qsStringifyOptions: {
+                    encode: false
                 },
                 encoding: 'binary'
             };

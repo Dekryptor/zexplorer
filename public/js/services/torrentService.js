@@ -233,8 +233,10 @@
              * @param {string} str Search string.
              * @return {Promise} $http() .success(callback(data)) and .error(callback(err))
              */
+            var regExp = new RegExp('/', 'g');
             var search = function(str, page) {
                 str = str === 'emptysearch' ? '' : str;
+                str = encodeURIComponent(str);
                 return $http.post('api/torrent/search', {
                     searchString: str,
                     page: page - 1
