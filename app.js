@@ -23,7 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routing (Need to be defined after all app.use configurations)
 require('./routes/all')(app);
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

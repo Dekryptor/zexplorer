@@ -109,11 +109,12 @@ function($http, $cookies, $q, $rootScope) {
             $cookies.remove(key);
         });
 
-        $rootScope.emit('user.loggedOut');
+        $rootScope.$emit('user.loggedOut');
     }
     
     return {
         login: login,
-        isLoggedIn: isLoggedIn
+        isLoggedIn: isLoggedIn,
+        logout: logout
     };
 }]);

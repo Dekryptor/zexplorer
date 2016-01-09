@@ -15,6 +15,11 @@
             templateUrl: 'templates/searchTemplate.html',
             controller: 'appController as appCtrl'
         });
+
+        $routeProvider.when('/category/:type/:page', {
+            templateUrl: 'templates/categoryTemplate.html',
+            controller: 'categoryController as categoryCtrl'
+        });
         
         $locationProvider.html5Mode(true);
     }]);
@@ -27,7 +32,7 @@
                 $rootScope.settings.torrentsPerPage = torrentsPerPage;
                 $rootScope.$emit('settings.updated');
             }, function(err) {
-                console.log('error ocurred while resolving the user settings.');
+                console.error('error ocurred while resolving the user settings.');
             });
         }
         refreshSettings();

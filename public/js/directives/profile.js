@@ -21,9 +21,7 @@ function ($cookies, authService, $rootScope) {
              */
             scope.logout = function() {
                 var cookies = $cookies.getAll();
-                angular.forEach(cookies, function(cval, ckey) {
-                    $cookies.remove(ckey);
-                });
+                authService.logout();
                 scope.isLoggedIn = authService.isLoggedIn();
                 return undefined;
             };

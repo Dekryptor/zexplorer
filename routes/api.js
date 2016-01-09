@@ -11,6 +11,7 @@ var log = require('../modules/simple-logger');
 | Authentication
 |------------------------------
 */
+
 var auth = require(path.normalize(__dirname + '/../modules/zamunda/auth'));
 
 router.post('/auth/login', function(req, res){
@@ -63,6 +64,18 @@ router.get('/torrent/description', function(req, res) {
     torrentService.getTorrentDescriptionHTML(req.query.url, req.headers.cookie)
     .then(function(html){
         res.end(html);
+    });
+});
+
+router.get('/torrent/category', function(req, res) {
+    torrentService.category(req.query, req.headers.cookie)
+    .then(function(data) {
+        res.send(data);
+        res.end();
+    }, function(err) {
+        res.status = err.status || 500;
+        res.json(err || {err: 'Server hitted an unknow error.'});
+        res.end();
     });
 });
 

@@ -20,7 +20,8 @@ var torrentService = (function() {
     var cache = {};
     
     var ZAMUNDA_URL = 'www.zamunda.net',
-        ZAMUNDA_URI = 'http://www.zamunda.net';
+        ZAMUNDA_URI = 'http://www.zamunda.net',
+        C_MOVIES = ['c31', 'c28', 'c35', 'c25', 'c24', 'c42', 'c20', 'c19', 'c46', 'c5'];
     
     // Exposed
 
@@ -41,8 +42,9 @@ var torrentService = (function() {
 
             request(options, function(err, res, body) {
                 if (err) reject(err);
+                if (!body) reject({status: 503, message: 'Няма връзка с замунда.'});
 
-                body = new Buffer(body, 'binary');
+                body = new Buffer(body || '', 'binary');
                 var conv = new iconv.Iconv('windows-1251', 'utf-8//IGNORE');
                 var utf8_body = conv.convert(body).toString();
 
@@ -97,8 +99,52 @@ var torrentService = (function() {
 
             request(options, function(err, res, body) {
                 if (err) reject(err);
+                if (!body) reject({status: 503, message: 'Няма връзка с замунда.'});
 
-                body = new Buffer(body, 'binary');
+                body = new Buffer(body || '', 'binary');
+                var conv = new iconv.Iconv('windows-1251', 'utf-8//IGNORE');
+                var utf8_body = conv.convert(body).toString();
+
+                var $ = cheerio.load(utf8_body);
+                var torrentParser = new TorrentParser();
+                var torrents = torrentParser.parseTable($('.test.bottom tr'));
+                var pagesEl = $('a[name="position"]').parent().find('font.red');
+                var pagination = torrentParser.getPagination(pagesEl);
+                resolve({
+                    torrents: torrents,
+                    pagination: pagination
+                });
+            });
+        });
+    };
+
+    var serveCategory = function(reqData, cookies) {
+        return new Promise(function(resolve, reject) {
+            if (isNaN(reqData.page)) throw {status: '400', error: 'page must be a number'};
+            reqData.page = reqData.page | 0;
+
+            var queryString = {field: 'name'}; // defaults;
+            var typeCategoryStrings = [];
+            // If no type is presented - usually it will show all torrents.
+            if (reqData.type == 'movies') typeCategoryStrings = C_MOVIES;
+            for (var i = 0; i < typeCategoryStrings.length; i++) {
+                queryString[typeCategoryStrings[i]] = 1;
+            }
+            queryString.page = reqData.page;
+
+            var options = {
+                url: ZAMUNDA_URI + '/bananas',
+                headers: {
+                    cookie: cookies || '',
+                },
+                qs: queryString,
+                encoding: 'binary'
+            };
+            request(options, function(err, res, body){
+                if (err) reject(err);
+                if (!body) reject({status: 503, message: 'Няма връзка с замунда.'});
+
+                body = new Buffer(body || '', 'binary');
                 var conv = new iconv.Iconv('windows-1251', 'utf-8//IGNORE');
                 var utf8_body = conv.convert(body).toString();
 
@@ -128,8 +174,9 @@ var torrentService = (function() {
             };
             request(options, function(err, res, body){
                 if (err) reject(err);
+                if (!body) reject({status: 503, message: 'Няма връзка с замунда.'});
 
-                body = new Buffer(body, 'binary');
+                body = new Buffer(body || '', 'binary');
                 var conv = new iconv.Iconv('windows-1251', 'utf-8//IGNORE');
                 var utf8_body = conv.convert(body).toString();
 
@@ -147,7 +194,8 @@ var torrentService = (function() {
     return {
         getRecommended: getRecommended,
         getTorrentDescriptionHTML: getTorrentDescriptionHTML,
-        search: search
+        search: search,
+        category: serveCategory
     };
 }());
 
