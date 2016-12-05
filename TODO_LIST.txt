@@ -2,7 +2,7 @@
 ##       Optimization:        ##
 ################################
 
-1.
+1. - READY XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ============================================================
 All zamunda responses are encoded from binary to utf-8.
 Check which encoder/decoder are faster and use the faster way
