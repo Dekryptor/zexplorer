@@ -3,7 +3,7 @@ var http = require("http");
 var Promise = require("bluebird");
 var cheerio = require('cheerio');
 var request = require('request');
-var iconv = require('iconv');
+var iconv = require('iconv-lite');
 // Main modules
 var TorrentParser = require('./TorrentParser'); // Return "class function" - use with `new`
 var torrentTypeParser = require('./torrentTypes.js');
@@ -21,13 +21,14 @@ var torrentService = (function() {
     
     var ZAMUNDA_URL = 'www.zamunda.net',
         ZAMUNDA_URI = 'http://www.zamunda.net',
+        // Movie categories
         C_MOVIES = ['c31', 'c28', 'c35', 'c25', 'c24', 'c42', 'c20', 'c19', 'c46', 'c5'];
     
     // Exposed
 
     /**
      * Get recommended torrents
-     * @param  {String} cookies [Cookies for user authentication]
+     * @param  {String} cookies  Cookies for user authentication
      * @return {Promise}         Promise that resolves with Array of torrents
      */
     var getRecommended = function getRecomenddedTorrents(cookies) {
@@ -44,9 +45,9 @@ var torrentService = (function() {
                 if (err) reject(err);
                 if (!body) reject({status: 503, message: 'Няма връзка с замунда.'});
 
-                body = new Buffer(body || '', 'binary');
-                var conv = new iconv.Iconv('windows-1251', 'utf-8//IGNORE');
-                var utf8_body = conv.convert(body).toString();
+                // body = new Buffer(body || '', 'binary');
+                // var conv = new iconv.Iconv('windows-1251', 'utf-8//IGNORE');
+                var utf8_body = binaryToUtf8(body);
 
                 var $ = cheerio.load(utf8_body);
                 var torrentParser = new TorrentParser();
@@ -101,14 +102,14 @@ var torrentService = (function() {
                 if (err) reject(err);
                 if (!body) reject({status: 503, message: 'Няма връзка с замунда.'});
 
-                body = new Buffer(body || '', 'binary');
-                var conv = new iconv.Iconv('windows-1251', 'utf-8//IGNORE');
-                var utf8_body = conv.convert(body).toString();
+                // body = new Buffer(body || '', 'binary');
+                // var conv = new iconv.Iconv('windows-1251', 'utf-8//IGNORE');
+                var utf8_body = binaryToUtf8(body);
 
                 var $ = cheerio.load(utf8_body);
                 var torrentParser = new TorrentParser();
                 var torrents = torrentParser.parseTable($('.test.bottom tr'));
-                var pagesEl = $('a[name="position"]').parent().find('font.red');
+                var pagesEl = $('font>a>b').parent().parent();
                 var pagination = torrentParser.getPagination(pagesEl);
                 resolve({
                     torrents: torrents,
@@ -144,14 +145,14 @@ var torrentService = (function() {
                 if (err) reject(err);
                 if (!body) reject({status: 503, message: 'Няма връзка с замунда.'});
 
-                body = new Buffer(body || '', 'binary');
-                var conv = new iconv.Iconv('windows-1251', 'utf-8//IGNORE');
-                var utf8_body = conv.convert(body).toString();
+                // body = new Buffer(body || '', 'binary');
+                // var conv = new iconv.Iconv('windows-1251', 'utf-8//IGNORE');
+                var utf8_body = binaryToUtf8(body);
 
                 var $ = cheerio.load(utf8_body);
                 var torrentParser = new TorrentParser();
                 var torrents = torrentParser.parseTable($('.test.bottom tr'));
-                var pagesEl = $('a[name="position"]').parent().find('font.red');
+                var pagesEl = $('font>a>b').parent().parent();
                 var pagination = torrentParser.getPagination(pagesEl);
                 resolve({
                     torrents: torrents,
@@ -176,9 +177,9 @@ var torrentService = (function() {
                 if (err) reject(err);
                 if (!body) reject({status: 503, message: 'Няма връзка с замунда.'});
 
-                body = new Buffer(body || '', 'binary');
-                var conv = new iconv.Iconv('windows-1251', 'utf-8//IGNORE');
-                var utf8_body = conv.convert(body).toString();
+                // body = new Buffer(body || '', 'binary');
+                // var conv = new iconv.Iconv('windows-1251', 'utf-8//IGNORE');
+                var utf8_body = binaryToUtf8(body);
 
                 resolve(utf8_body);
             });
@@ -187,6 +188,12 @@ var torrentService = (function() {
 
     function autoComplete(str) {
         // TODO
+    }
+
+    function binaryToUtf8(body, bodyEncoding) {
+        body = new Buffer(body || '', 'binary');
+        var output = iconv.decode(body, bodyEncoding || 'windows-1251');
+        return iconv.encode(output, 'utf-8');
     }
     
     

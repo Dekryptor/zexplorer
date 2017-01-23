@@ -103,14 +103,13 @@ Parser.prototype.getPagination = function(pagesElement) {
     // If last page is requested in zamunda.net
     // Last page is in <b> tag instead of <a> (for all selected pages not only the last).
     // If last page isn't selected probably lastAnchor variable is the last child.
-    var isLastPageSelected = ! lastAnchor.is(':last-child');
-
+    var isLastPageSelected = !lastAnchor.is(':last-child');
     var pagePath = lastAnchor.attr('href'); // This is last <a> href attr.
     var pagesCount;
     var maxTorrents;
     if (isLastPageSelected) { // Then the last page is <b> without "href" attr.
         pagesCount = pagePath ? pagePath.split('=').pop() : 0;
-        pagesCount++; // increasing cuz pagesPath is last but one page.
+        pagesCount++; // since we not get last page path but last but one. we need to add 1.
         maxTorrents = pagesElement.find('b').last().text().split('-').pop();
     } else {
         pagesCount = pagePath ? pagePath.split('=').pop() : 0; // Parsed to int in return object.

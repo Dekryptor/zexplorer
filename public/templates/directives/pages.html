@@ -1,11 +1,11 @@
-<div layout="column" ng-show="pagesCount">
+<div layout="column" ng-show="paging.pagesCount">
 	
 	<div flex class="text-center">
 		
 		<uib-pagination class="torrents-pagination"
         ng-change="pageChanged()"
 		items-per-page="itemsPerPage"
-		total-items="torrentsCount" 
+		total-items="paging.torrentsCount" 
 		ng-model="selectedPage" 
 		max-size="maxPages" 
 		class="pagination-sm" 
